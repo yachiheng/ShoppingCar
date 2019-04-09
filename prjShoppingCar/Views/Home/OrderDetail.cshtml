@@ -1,0 +1,61 @@
+﻿@model IEnumerable<prjShoppingCar.Models.tOrderDetail>
+
+@{
+    ViewBag.Title = "訂單明細";
+}
+
+<h2>訂單明細</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            訂單編號
+        </th>
+        <th>
+            會員帳號
+        </th>
+        <th>
+            商品編號
+        </th>
+        <th>
+            商品名稱
+        </th>
+        <th>
+            價格
+        </th>
+        <th>
+            數量
+        </th>
+        <th>
+            是否訂購
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fOrderGuid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fUserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fPId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fIsApproved)
+            </td>
+        </tr>
+    }
+
+</table>

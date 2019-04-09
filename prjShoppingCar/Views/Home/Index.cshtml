@@ -1,0 +1,90 @@
+﻿@model IEnumerable<prjShoppingCar.Models.tProduct>
+
+@{
+    ViewBag.Title = "產品列表";
+}
+
+<link href="~/css/jquery.fancybox.min.css" rel="stylesheet" />
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/jquery.fancybox.min.js"></script>
+
+<div class="row">
+    @{
+        int count = 1;
+        foreach (var item in Model)
+        {
+            <div class="col-lg-4" style="margin-top:30px;">
+                <div class="thumbnail">
+                    <table style="height:280px">
+                        <tr>
+                            <td align="center">
+                                <a href="~/images/@item.fImg" data-fancybox="images" data-width="2048" data-height="1365">
+                                    <img id="single" src="~/images/@item.fImg" style="width:75%" title="放大顯示" />
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="caption" style="background-color:darkslategrey;color:white;">
+                        <h2>@item.fName</h2>
+                        <h4 style="color:greenyellow;">單價：@item.fPrice</h4>
+                        @if (Session["Member"] == null)
+                        {
+                            <p></p>
+                        }
+                        else
+                        {
+                            <p>
+                                <a href="@Url.Action("AddCar")?fPId=@item.fPId" class="btn btn-primary">加入購物車</a>
+                                <button type="button" class="btn btn-info" id="btn_@count" data-toggle="modal"
+                                        data-target="#myModal">
+                                    產品資訊
+                                </button>
+                                <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $("#btn_@count").click(function () {
+                                    $("#fName").html("@item.fName");
+                                        $("#fImgfPrice").html("<img src='images/@item.fImg' style='width:100%;'/><p><h2><strong>產品特色:</strong></h2><h3>@item.fDesciption</h3></p>");
+                                    });
+                                });
+                                </script>
+                            </p>
+                            count++;
+                        }
+                    </div>
+
+                    <!-- Modal互動視窗 -->
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- 互動視窗頁首 -->
+                                <div class="modal-header bg-info" style="color:white;font-style:unset;background-color:darkslategrey;text-align:center">
+                                    <h1 class="modal-title" id="fName">標題</h1>
+                                </div>
+                                <!-- End互動視窗頁首 -->
+                                <!-- 互動視窗主體 -->
+                                <div class="modal-body">
+                                    <p id="fImgfPrice">
+                                        圖與內文
+                                    </p>
+                                </div>
+                                <!-- End互動視窗主體 -->
+                                <!-- 互動視窗頁尾 -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary"
+                                            data-dismiss="modal">
+                                        關閉
+                                    </button>
+                                </div>
+                                <!-- End互動視窗頁尾 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        }
+        ;}
+</div>
+
+
